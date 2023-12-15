@@ -3,12 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-
-//Error Handler middleware 
-const errorHandler = (res, error) => {
-    console.log(error);
-    return res.status(500).json({ message: 'Internal server error.' });
-}
+const errorHandler = require('../middlewares/errorHandler');
 
 router.post('/register', async (req, res) => {
     try {
@@ -69,8 +64,9 @@ router.post('/login', async (req, res) => {
             message: "You've logged in successfully", token
         });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Server error.' });
+        // console.error(error);
+        // return res.status(500).json({ message: 'Server error.' });
+        errorHandler(res, error);
     }
 });
 

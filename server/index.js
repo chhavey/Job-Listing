@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoutes');
+const jobRoutes = require('./routes/jobRoutes');
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.get('/health', (req, res) => {
 })
 
 app.use('/user', authRoutes);
+app.use('/job', jobRoutes);
 
 app.listen(process.env.PORT, () => {
     mongoose.connect(process.env.MONGODB_URL)
