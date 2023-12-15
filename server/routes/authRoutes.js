@@ -4,6 +4,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
+//Error Handler middleware 
+const errorHandler = (res, error) => {
+    console.log(error);
+    return res.status(500).json({ message: 'Internal server error.' });
+}
+
 router.post('/register', async (req, res) => {
     try {
         const { name, email, mobile, password } = req.body;
@@ -22,15 +28,14 @@ router.post('/register', async (req, res) => {
         //hash password
         const encryptedPassword = await bcrypt.hash(password, 10)
 
-        // Create a new user
+        // creating new user
         const newUser = new User({ name, email, mobile, password: encryptedPassword });
         await newUser.save();
 
-        // Send success response
+        // Success response
         return res.status(201).json({ message: 'User registered successfully.' });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Server error.' });
+        errorHandler(res, error);
     }
 });
 
