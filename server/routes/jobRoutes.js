@@ -4,7 +4,7 @@ const Job = require('../models/jobModel');
 const requireAuth = require('../middlewares/requireAuth');
 const errorHandler = require('../middlewares/errorHandler');
 
-router.post('/job-post', requireAuth, async (req, res, next) => {
+router.post('/job-post', requireAuth, async (req, res) => {
     const { companyName, logo, jobPosition, monthlySalary, jobType, workSetting, location, description, about, skills, information } = req.body;
     let skillsArray = skills;
     if (typeof skills === 'string') {
@@ -33,7 +33,56 @@ router.post('/job-post', requireAuth, async (req, res, next) => {
         })
     }
     catch (error) {
-        next(errorHandler(res, error));
+        errorHandler(res, error);
+    }
+});
+
+router.put('/job-post/:id', requireAuth, async (req, res) => {
+    const { companyName, logo, jobPosition, monthlySalary, jobType, workSetting, location, description, about, skills, information } = req.body;
+    const jobId = req.params.id;
+
+    try {
+        const job = await Job.findById(jobId);
+
+        if (!job) {
+            return res.status(404).json({
+                status: 'FAILED',
+                message: 'Job not found.'
+            });
+        }
+
+        // Update job details
+        job.companyName = companyName;
+        job.logo = logo;
+        job.jobPosition = jobPosition;
+        job.monthlySalary = monthlySalary;
+        job.jobType = jobType;
+        job.workSetting = workSetting;
+        job.location = location;
+        job.description = description;
+        job.about = about;
+        job.skills = typeof skills === 'string' ? skills.split(',').map(skill => skill.trim()) : skills;
+        job.information = information;
+
+        await job.save();
+
+        return res.json({
+            status: 'SUCCESS',
+            message: 'Job post updated successfully.'
+        });
+    } catch (error) {
+        errorHandler(res, error);
+    }
+});
+
+router.get('/alljobs', requireAuth, async (req, res) => {
+    const { skills, jobPosition } = req.body;
+    const skillsArray = skills.split(',').map(skill => skill.trim());
+    try {
+        const jobs = await Job.find({ jobPosition, skills: { $in: skillsArray } });
+        res.status(200).json(jobs);
+    } catch (error) {
+        errorHandler(res, error);
     }
 });
 
