@@ -1,0 +1,89 @@
+.container {
+  display: flex;
+  font-family: "DM Sans", sans-serif;
+}
+
+.register {
+  flex: 1;
+  padding: 0 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.register h1 {
+  color: #000000;
+  font-weight: 700;
+  margin-bottom: -1rem;
+}
+
+.register p {
+  color: #525252;
+  font-weight: 500;
+}
+
+input {
+  width: 80%;
+  border: 1.5px solid #c2c2c2;
+  border-radius: 0.25rem;
+  height: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+input[type="checkbox"] {
+  height: 1rem;
+  width: 1rem;
+  margin: 0 0.5rem 0 0;
+}
+
+label {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: #525252;
+  margin: 0;
+}
+
+input::placeholder {
+  color: #525252;
+  padding: 1rem;
+  font-weight: 500;
+  line-height: 29px;
+}
+
+button {
+  background-color: #ed5353;
+  border: none;
+  border-radius: 0.2rem;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.75rem 1rem;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.banner {
+  border: none;
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.textOverlay {
+  position: absolute;
+  color: white;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 500;
+}
+
+.banner img {
+  height: 100vh;
+  display: block;
+}

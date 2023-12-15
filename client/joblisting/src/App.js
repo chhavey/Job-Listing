@@ -1,9 +1,10 @@
 import './App.css';
+import Register from './components/Register/Register';
 
 function App() {
   return (
     <div className="App">
-      Job Listing App
+      <Register />
     </div>
   );
 }

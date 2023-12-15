@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const jobSchema = new mongoose.Schema({
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        auto: true
+    },
     companyName: {
         type: String,
         required: true
@@ -19,10 +23,12 @@ const jobSchema = new mongoose.Schema({
     },
     jobType: {
         type: String,
+        enum: ['Part-time', 'Full-time'],
         required: true
     },
     workSetting: {
         type: String,
+        enum: ['Remote', 'Office'],
         required: true
     },
     location: {
