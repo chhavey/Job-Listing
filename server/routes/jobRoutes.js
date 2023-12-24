@@ -79,7 +79,9 @@ router.get('/alljobs', requireAuth, async (req, res) => {
     const { skills, jobPosition } = req.body;
     const skillsArray = skills.split(',').map(skill => skill.trim());
     try {
-        const jobs = await Job.find({ jobPosition, skills: { $in: skillsArray } });
+        const jobs = await Job.find(
+            { jobPosition, skills: { $in: skillsArray } },
+            { companyName: 0, description: 0, about: 0, information: 0 }); //excluding these items (0 for exclusion, 1for inclusion)
         res.status(200).json(jobs);
     } catch (error) {
         errorHandler(res, error);
