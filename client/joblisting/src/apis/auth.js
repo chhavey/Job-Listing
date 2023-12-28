@@ -1,8 +1,8 @@
 import axios from 'axios';
-// const backendUrl = process.env.BACKEND_URL;
 
 export const login = async (email, password) => {
     try {
+        // const backendUrl = process.env.BACKEND_URL;
         const reqUrl = `http://localhost:4000/user/login`;
         const reqPayload = {
             email: email,
@@ -13,10 +13,11 @@ export const login = async (email, password) => {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("loggedInUser", response.data.recruiterName);
         }
-        return response.data;
+        return response.data.message;
     }
     catch (error) {
-        console.log(error);
+        console.log(error.response.data.message);
+        throw new Error(error.response.data.message || 'Login failed!');
     }
 }
 
@@ -30,13 +31,10 @@ export const register = async (email, name, mobile, password) => {
             password: password,
         };
         const response = await axios.post(reqUrl, reqPayload);
-        // if (response.status === 200) {
-        //     const loginResponse = await login(email, password);
-        //     return loginResponse.data;
-        // }
-        return response.data;
+        return response.data.message;
     }
     catch (error) {
-        console.log(error);
+        console.log(error.response.data.message);
+        throw new Error(error.response.data.message || 'Registration failed!');
     }
 }

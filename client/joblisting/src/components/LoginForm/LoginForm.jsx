@@ -3,6 +3,8 @@ import style from "./login.module.css";
 import banner from "../../assets/registerPage.png";
 import { login } from "../../apis/auth";
 import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "react-hot-toast";
+import { logoutAndRedirect } from "../../utils/utils";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -13,15 +15,20 @@ function LoginForm() {
     e.preventDefault();
     try {
       const response = await login(email, password);
-      console.log(response);
-      navigate("/");
+      if (response) {
+        navigate("/");
+        logoutAndRedirect(navigate);
+      }
     } catch (error) {
-      console.log("Login error");
+      toast.error(error.message || "Login failed!", {
+        duration: 4000,
+      });
     }
   };
 
   return (
     <div className={style.container}>
+      <Toaster />
       <div className={style.login}>
         <div>
           <h1>Already have an account?</h1>

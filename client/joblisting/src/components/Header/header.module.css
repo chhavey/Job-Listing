@@ -1,0 +1,70 @@
+.container {
+  background-color: #ed5353;
+  border-bottom-left-radius: 2.5rem;
+  border-bottom-right-radius: 2.5rem;
+  padding: 1rem;
+  background-image: url("../../assets/Rectangle1.png"),
+    url("../../assets/Rectangle2.png"), url("../../assets/Rectangle3.png");
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: left bottom, center top, 90% top;
+  background-size: 15rem, 15rem, 15rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: default;
+}
+
+.title {
+  font-family: "DM Sans", sans-serif;
+  color: white;
+  font-size: large;
+  font-weight: 600;
+  padding-left: 2rem;
+}
+
+.loggedin,
+.loggedout {
+  display: flex;
+  padding-right: 3rem;
+  align-items: center;
+}
+
+.login {
+  border: 2px solid white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.75rem;
+  color: white;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+}
+
+.register {
+  border: 2px solid white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  background-color: white;
+  color: #ed5353;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+
+.logout,
+.user {
+  padding: 0.5rem 1rem;
+  color: white;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+}
+
+.avatar img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 3rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    background-size: 10rem, 10rem, 10rem;
+  }
+}

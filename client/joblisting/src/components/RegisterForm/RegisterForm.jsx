@@ -25,9 +25,12 @@ function RegisterForm() {
       try {
         const registerResponse = await register(email, name, mobile, password);
         if (registerResponse) {
-          toast.success("User registered successfully!", {
-            duration: 4000,
-          });
+          toast.success(
+            registerResponse.message || "User registered successfully!",
+            {
+              duration: 4000,
+            }
+          );
           try {
             const response = await login(email, password);
             console.log(response);
@@ -39,7 +42,7 @@ function RegisterForm() {
           }
         }
       } catch (error) {
-        toast.error(error.response.data.message || "Registration failed!", {
+        toast.error(error.message || "Registration failed!", {
           duration: 4000,
         });
       }
