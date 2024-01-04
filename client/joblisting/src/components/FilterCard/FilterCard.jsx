@@ -3,7 +3,7 @@ import style from "./filterCard.module.css";
 import { RiSearchLine } from "react-icons/ri";
 import { isUserLoggedIn } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
-import JobCard from "../JobCard.jsx/JobCard";
+import JobCard from "../JobCard/JobCard";
 import { getAllJobs, filterJobs } from "./../../apis/jobs";
 
 function FilterCard() {
@@ -21,7 +21,6 @@ function FilterCard() {
     try {
       const response = await getAllJobs();
       setJobList(response);
-      console.log("render hua");
     } catch (error) {
       console.log(error);
     }

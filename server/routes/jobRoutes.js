@@ -84,6 +84,25 @@ router.get('/alljobs', async (req, res) => {
     }
 });
 
+router.get('/job-detail/:id', async (req, res) => {
+    const jobId = req.params.id;
+
+    try {
+        const job = await Job.findById(jobId);
+
+        if (!job) {
+            return res.status(404).json({
+                status: 'FAILED',
+                message: 'Job not found.'
+            });
+        }
+
+        res.status(200).json(job);
+    } catch (error) {
+        errorHandler(res, error);
+    }
+});
+
 router.get('/job-filter', async (req, res) => {
     const { jobPosition, skills } = req.query;
 
