@@ -75,13 +75,29 @@ router.put('/job-post/:id', requireAuth, async (req, res) => {
     }
 });
 
-router.get('/alljobs', requireAuth, async (req, res) => {
-    const { skills, jobPosition } = req.body;
-    const skillsArray = skills.split(',').map(skill => skill.trim());
+router.get('/alljobs', async (req, res) => {
     try {
-        const jobs = await Job.find(
-            { jobPosition, skills: { $in: skillsArray } },
-            { companyName: 0, description: 0, about: 0, information: 0 }); //excluding these items (0 for exclusion, 1for inclusion)
+        const jobs = await Job.find({});
+        res.status(200).json(jobs);
+    } catch (error) {
+        errorHandler(res, error);
+    }
+});
+
+router.get('/job-filter', async (req, res) => {
+    const { jobPosition, skills } = req.query;
+
+    try {
+        let filter = {};
+        if (jobPosition) {
+            filter.jobPosition = jobPosition;
+        }
+        if (skills) {
+            const skillsArray = skills.split(',').map(skill => skill.trim());
+            filter.skills = { $in: skillsArray };
+        }
+
+        const jobs = await Job.find(filter);
         res.status(200).json(jobs);
     } catch (error) {
         errorHandler(res, error);
