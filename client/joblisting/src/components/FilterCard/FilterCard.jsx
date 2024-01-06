@@ -87,6 +87,7 @@ function FilterCard() {
             type="text"
             placeholder="Type any job title"
             className={style.searchInput}
+            name="search"
             value={searchTerm}
             onChange={handleSearch}
           />

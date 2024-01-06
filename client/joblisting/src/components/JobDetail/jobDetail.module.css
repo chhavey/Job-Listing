@@ -42,6 +42,11 @@
   gap: 1rem;
 }
 
+.topLeft img {
+  height: 2.25rem;
+  width: 2.25rem;
+}
+
 .jobPosition {
   color: black;
   font-size: 1.75rem;

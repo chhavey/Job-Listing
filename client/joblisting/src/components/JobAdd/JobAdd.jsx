@@ -221,11 +221,19 @@ function JobAdd({ jobId, type }) {
                 />
               </div>
               <div className={style.buttons}>
-                <button className={style.cancelBtn} onClick={handleCancel}>
+                <button
+                  className={style.cancelBtn}
+                  type="button"
+                  onClick={handleCancel}
+                >
                   Cancel
                 </button>
 
-                <button className={style.addBtn} onClick={handleSubmit}>
+                <button
+                  className={style.addBtn}
+                  type="submit"
+                  onClick={handleSubmit}
+                >
                   {type === "add" ? <>+ Add job</> : <>Update job</>}
                 </button>
               </div>
