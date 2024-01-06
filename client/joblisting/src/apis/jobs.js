@@ -35,3 +35,34 @@ export const getJobById = async (jobId) => {
         throw new Error(error.response.data.message || "Failed to fetch job details");
     }
 };
+
+export const addJob = async (JobDetails, token) => {
+    try {
+        const reqUrl = 'http://localhost:4000/job/job-post';
+        const response = await axios.post(reqUrl, JobDetails, {
+            headers: {
+                'Authorization': token,
+            }
+        });
+        return response.status;
+    }
+    catch (error) {
+        console.log(error);
+        throw new Error("Failed to add job");
+    }
+};
+
+export const updateJob = async (jobId, JobDetails, token) => {
+    try {
+        const reqUrl = `http://localhost:4000/job/job-post/${jobId}`;
+        const response = await axios.put(reqUrl, JobDetails, {
+            headers: {
+                'Authorization': token,
+            }
+        });
+        return response.status;
+    }
+    catch (error) {
+        throw new Error(error.response.data.message || "Failed to add job");
+    }
+};
