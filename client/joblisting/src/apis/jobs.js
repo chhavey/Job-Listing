@@ -7,8 +7,7 @@ export const getAllJobs = async () => {
         const response = await axios.get(reqUrl);
         return response.data;
     }
-    catch {
-        console.log(error.response.data.message);
+    catch (error) {
         throw new Error(error.response.data.message || 'Cannot fetch jobs');
     }
 }
@@ -21,8 +20,7 @@ export const filterJobs = async (jobPosition, skills) => {
         const response = await axios.get(reqUrl);
         return response.data;
     }
-    catch {
-        console.log(error.response.data.message);
+    catch (error) {
         throw new Error(error.response.data.message || 'Cannot fetch jobs with filter');
     }
 }
@@ -34,7 +32,6 @@ export const getJobById = async (jobId) => {
         const response = await axios.get(reqUrl);
         return response.data;
     } catch (error) {
-        console.log(error.response);
         throw new Error(error.response.data.message || "Failed to fetch job details");
     }
 };

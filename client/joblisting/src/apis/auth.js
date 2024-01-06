@@ -17,7 +17,6 @@ export const login = async (email, password) => {
         return response.data.message;
     }
     catch (error) {
-        console.log(error.response.data.message);
         throw new Error(error.response.data.message || 'Login failed!');
     }
 }
@@ -36,7 +35,6 @@ export const register = async (email, name, mobile, password) => {
         return response.data.message;
     }
     catch (error) {
-        console.log(error.response.data.message);
         throw new Error(error.response.data.message || 'Registration failed!');
     }
 }

@@ -5,6 +5,9 @@ import Home from './pages/Home';
 import AddJob from './pages/AddJob';
 import ViewJob from './pages/ViewJob';
 
+//backend live URL : https://joblisting-yy3h.onrender.com
+//use in .env file
+
 function App() {
 
   return (
