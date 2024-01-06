@@ -2,8 +2,9 @@ import axios from 'axios';
 
 export const login = async (email, password) => {
     try {
-        // const backendUrl = process.env.BACKEND_URL;
-        const reqUrl = `http://localhost:4000/user/login`;
+        const baseUrl = process.env.REACT_APP_BACKEND_URL;
+        const reqUrl = `${baseUrl}/user/login`;
+
         const reqPayload = {
             email: email,
             password: password,
@@ -23,7 +24,8 @@ export const login = async (email, password) => {
 
 export const register = async (email, name, mobile, password) => {
     try {
-        const reqUrl = `http://localhost:4000/user/register`;
+        const baseUrl = process.env.REACT_APP_BACKEND_URL;
+        const reqUrl = `${baseUrl}/user/register`;
         const reqPayload = {
             email: email,
             name: name,

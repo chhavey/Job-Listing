@@ -2,7 +2,8 @@ import axios from 'axios';
 
 export const getAllJobs = async () => {
     try {
-        const reqUrl = `http://localhost:4000/job/alljobs`;
+        const baseUrl = process.env.REACT_APP_BACKEND_URL;
+        const reqUrl = `${baseUrl}/job/alljobs`;
         const response = await axios.get(reqUrl);
         return response.data;
     }
@@ -15,7 +16,8 @@ export const getAllJobs = async () => {
 
 export const filterJobs = async (jobPosition, skills) => {
     try {
-        const reqUrl = `http://localhost:4000/job/job-filter?jobPosition=${jobPosition}&skills=${skills}`;
+        const baseUrl = process.env.REACT_APP_BACKEND_URL;
+        const reqUrl = `${baseUrl}/job/job-filter?jobPosition=${jobPosition}&skills=${skills}`;
         const response = await axios.get(reqUrl);
         return response.data;
     }
@@ -27,7 +29,8 @@ export const filterJobs = async (jobPosition, skills) => {
 
 export const getJobById = async (jobId) => {
     try {
-        const reqUrl = `http://localhost:4000/job/job-detail/${jobId}`;
+        const baseUrl = process.env.REACT_APP_BACKEND_URL;
+        const reqUrl = `${baseUrl}/job/job-detail/${jobId}`;
         const response = await axios.get(reqUrl);
         return response.data;
     } catch (error) {
@@ -38,7 +41,8 @@ export const getJobById = async (jobId) => {
 
 export const addJob = async (JobDetails, token) => {
     try {
-        const reqUrl = 'http://localhost:4000/job/job-post';
+        const baseUrl = process.env.REACT_APP_BACKEND_URL;
+        const reqUrl = `${baseUrl}/job/job-post`;
         const response = await axios.post(reqUrl, JobDetails, {
             headers: {
                 'Authorization': token,
@@ -53,7 +57,8 @@ export const addJob = async (JobDetails, token) => {
 
 export const updateJob = async (jobId, JobDetails, token) => {
     try {
-        const reqUrl = `http://localhost:4000/job/job-post/${jobId}`;
+        const baseUrl = process.env.REACT_APP_BACKEND_URL;
+        const reqUrl = `${baseUrl}/job/job-post/${jobId}`;
         const response = await axios.put(reqUrl, JobDetails, {
             headers: {
                 'Authorization': token,
