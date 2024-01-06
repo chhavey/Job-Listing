@@ -3,9 +3,11 @@ import style from "./jobAdd.module.css";
 import banner from "../../assets/addJobBanner.png";
 import { getJobById, addJob, updateJob } from "../../apis/jobs";
 import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "react-hot-toast";
 
 function JobAdd({ jobId, type }) {
   const navigate = useNavigate();
+  const [validationError, setValidationError] = useState("");
   const [formData, setFormData] = useState({
     companyName: "",
     logo: "",
@@ -37,6 +39,12 @@ function JobAdd({ jobId, type }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === "monthlySalary" && !/^\d*$/.test(value)) {
+      setValidationError("Please enter numeric characters only.");
+      return;
+    }
+
     setFormData({
       ...formData,
       [name]: value,
@@ -48,14 +56,30 @@ function JobAdd({ jobId, type }) {
     const token = localStorage.getItem("token");
     try {
       if (type === "add") {
-        await addJob(formData, token);
-        console.log("success");
+        const response = await addJob(formData, token);
+        if (response) {
+          toast.success(response.message || "Job posted successfully!", {
+            duration: 4000,
+          });
+          setTimeout(() => {
+            navigate("/");
+          }, 5000);
+        }
       } else if (type === "edit") {
-        await updateJob(jobId, formData, token);
-        console.log("demo success");
+        const response = await updateJob(jobId, formData, token);
+        if (response) {
+          toast.success(response.message || "Job updated successfully!", {
+            duration: 4000,
+          });
+          setTimeout(() => {
+            navigate("/");
+          }, 5000);
+        }
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.message || "Something went wrong.", {
+        duration: 4000,
+      });
     }
   };
 
@@ -64,6 +88,7 @@ function JobAdd({ jobId, type }) {
   };
   return (
     <div className={style.container}>
+      <Toaster />
       <div className={style.formContainer}>
         <div className={style.form}>
           <div className={style.heading}>Add job description</div>
@@ -101,13 +126,18 @@ function JobAdd({ jobId, type }) {
               </div>
               <div className={style.element}>
                 <span>Monthly salary</span>
-                <input
-                  type="text"
-                  placeholder="Enter Amount in rupees"
-                  name="monthlySalary"
-                  value={formData.monthlySalary}
-                  onChange={handleChange}
-                />
+                <div className={style.validate}>
+                  <input
+                    type="text"
+                    placeholder="Enter Amount in rupees"
+                    name="monthlySalary"
+                    value={formData.monthlySalary}
+                    onChange={handleChange}
+                  />
+                  {validationError && (
+                    <p className={style.error}>{validationError}</p>
+                  )}
+                </div>
               </div>
               <div className={style.element}>
                 <span>Job type</span>
@@ -117,7 +147,7 @@ function JobAdd({ jobId, type }) {
                   value={formData.jobType}
                   onChange={handleChange}
                 >
-                  <option disabled defaultValue>
+                  <option value="" defaultValue disabled>
                     Select
                   </option>
                   <option>Part-time</option>
@@ -133,7 +163,7 @@ function JobAdd({ jobId, type }) {
                   value={formData.workSetting}
                   onChange={handleChange}
                 >
-                  <option disabled defaultValue>
+                  <option value="" defaultValue disabled>
                     Select
                   </option>
                   <option>Remote</option>

@@ -6,7 +6,16 @@ const errorHandler = require('../middlewares/errorHandler');
 
 router.post('/job-post', requireAuth, async (req, res) => {
     const { companyName, logo, jobPosition, monthlySalary, jobType, workSetting, location, description, about, skills, information } = req.body;
+
+    // Check if required fields are present
+    if (!companyName || !logo || !jobPosition || !monthlySalary || !jobType || !workSetting || !location || !description || !about || !skills || !information) {
+        return res.status(400).json({
+            status: 'FAILED',
+            message: 'All fields are required.'
+        });
+    }
     let skillsArray = skills;
+
     if (typeof skills === 'string') {
         skillsArray = skills.split(',').map(skill => skill.trim());
     }
@@ -40,6 +49,14 @@ router.post('/job-post', requireAuth, async (req, res) => {
 router.put('/job-post/:id', requireAuth, async (req, res) => {
     const { companyName, logo, jobPosition, monthlySalary, jobType, workSetting, location, description, about, skills, information } = req.body;
     const jobId = req.params.id;
+
+    // Check if required fields are present
+    if (!companyName || !logo || !jobPosition || !monthlySalary || !jobType || !workSetting || !location || !description || !about || !skills || !information) {
+        return res.status(400).json({
+            status: 'FAILED',
+            message: 'All fields are required.'
+        });
+    }
 
     try {
         const job = await Job.findById(jobId);

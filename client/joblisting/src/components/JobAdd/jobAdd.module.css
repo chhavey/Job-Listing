@@ -102,3 +102,14 @@
   font-weight: 500;
   font-size: 1.25rem;
 }
+
+.validate {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: #ed5353;
+  font-size: small;
+  margin: 0.2rem 0 0 0;
+}

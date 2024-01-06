@@ -47,8 +47,7 @@ export const addJob = async (JobDetails, token) => {
         return response.status;
     }
     catch (error) {
-        console.log(error);
-        throw new Error("Failed to add job");
+        throw new Error(error.response.data.message || "Failed to add job");
     }
 };
 
@@ -63,6 +62,6 @@ export const updateJob = async (jobId, JobDetails, token) => {
         return response.status;
     }
     catch (error) {
-        throw new Error(error.response.data.message || "Failed to add job");
+        throw new Error(error.response.data.message || "Failed to update job");
     }
 };
